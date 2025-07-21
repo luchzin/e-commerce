@@ -48,7 +48,7 @@ Sellers can list products, manage inventory, and view sales, while buyers can br
 
 | Field            | Type     | Constraints                   |
 | ---------------- | -------- | ----------------------------- |
-| `_id`            | ObjectId | Primary Key                   |
+| `id`             | ObjectId | Primary Key                   |
 | `username`       | String   | NOT NULL                      |
 | `email`          | String   | UNIQUE, NOT NULL              |
 | `password`       | String   | NULLABLE                      |
@@ -65,7 +65,7 @@ Sellers can list products, manage inventory, and view sales, while buyers can br
 
 | Field        | Type     | Constraints               |
 | ------------ | -------- | ------------------------- |
-| `_id`        | ObjectId | Primary Key               |
+| `id`         | ObjectId | Primary Key               |
 | `created_at` | DateTime | DEFAULT current timestamp |
 | `updated_at` | DateTime | AUTO UPDATE               |
 | `facebook`   | String   | NULLABLE                  |
@@ -77,19 +77,18 @@ Sellers can list products, manage inventory, and view sales, while buyers can br
 
 ### **Product Table**
 
-| Field          | Type        | Constraints               |
-| -------------- | ----------- | ------------------------- |
-| `_id`          | ObjectId    | Primary Key               |
-| `created_at`   | DateTime    | DEFAULT current timestamp |
-| `updated_at`   | DateTime    | AUTO UPDATE               |
-| `creator_id`   | ObjectId    | Foreign Key → Users.\_id  |
-| `description`  | String      | NOT NULL                  |
-| `price`        | Number      | NOT NULL                  |
-| `images`       | [String]    | Array of image URLs       |
-| `stock`        | Number      | Default: 0                |
-| `category`     | String      | NOT NULL                  |
-| `rating`       | Number(0-5) | Default: 0                |
-| `reviewsCount` | Number      | Default: 0                |
+| Field         | Type        | Constraints               |
+| ------------- | ----------- | ------------------------- |
+| `id`          | ObjectId    | Primary Key               |
+| `created_at`  | DateTime    | DEFAULT current timestamp |
+| `updated_at`  | DateTime    | AUTO UPDATE               |
+| `creator_id`  | ObjectId    | Foreign Key → Users.\_id  |
+| `description` | String      | NOT NULL                  |
+| `price`       | Number      | NOT NULL                  |
+| `images`      | [String]    | Array of image URLs       |
+| `stock`       | Number      | Default: 0                |
+| `category`    | String      | NOT NULL                  |
+| `rating`      | Number(0-5) | Default: 0                |
 
 ---
 
@@ -97,12 +96,12 @@ Sellers can list products, manage inventory, and view sales, while buyers can br
 
 | Field         | Type     | Constraints               |
 | ------------- | -------- | ------------------------- |
-| `_id`         | ObjectId | Primary Key               |
+| `id`          | ObjectId | Primary Key               |
 | `created_at`  | DateTime | DEFAULT current timestamp |
 | `updated_at`  | DateTime | AUTO UPDATE               |
 | `reviewer_id` | ObjectId | Foreign Key → Users.\_id  |
 | `content`     | String   | NOT NULL                  |
-| `like`        | Number   | Default: 0                |
+| `like_counts` | Number   | Default: 0                |
 
 ---
 
@@ -124,3 +123,9 @@ Sellers can list products, manage inventory, and view sales, while buyers can br
    git clone https://github.com/luchzin/e-commerce.git
    cd nextjs-ecommerce
    ```
+
+2. **Run the repprojecto**
+
+```bash
+   docker-compose -f docker-compose.dev.yml up -d
+```

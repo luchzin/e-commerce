@@ -6,7 +6,6 @@ import { ThemeToggle } from "../components/theme-toggle";
 import { SidebarProvider, } from "../components/ui/sidebar";
 import AppSidebar from "../components/app-sidebar";
 import AppHeader from "../components/app-header";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
