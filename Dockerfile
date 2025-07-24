@@ -1,5 +1,5 @@
 # Use official Node.js image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
@@ -12,9 +12,8 @@ RUN npm install
 COPY . .
 
 # Build Next.js (optional if you run dev mode)
-RUN npm run build
+# RUN npm run build
 
 # Expose port and start app
 EXPOSE 3000
-CMD npx drizzle-kit push && npm run dev
-
+CMD sh -c "npx drizzle-kit push && npm run seed && npm run dev"

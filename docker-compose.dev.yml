@@ -1,8 +1,7 @@
- 
 services:
   nextjs:
     container_name: nextjs_app
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     ports:
@@ -12,6 +11,7 @@ services:
       NODE_ENV: development
     depends_on:
       - db
+    restart: unless-stopped
     volumes:
       - .:/app
       - /app/node_modules
