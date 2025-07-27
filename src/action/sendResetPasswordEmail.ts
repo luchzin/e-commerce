@@ -38,7 +38,7 @@ export async function sendResetPasswordEmail(formData: FormData) {
 
     // 3. Send email with reset link
     const resetLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password?token=${token}`;
-    await sendEmail(email,resetLink);
+    await sendEmail(email, resetLink);
 
     return { success: true };
   } catch (error) {

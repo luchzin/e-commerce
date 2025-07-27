@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
- 
 
 export const metadata: Metadata = {
   title: "Hello Application Next App",
@@ -15,15 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-      >
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-                <div className="grid items-center">{children}</div>
+          <div className="grid items-center">{children}</div>
         </ThemeProvider>
       </body>
     </html>

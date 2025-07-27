@@ -3,7 +3,6 @@
 import { signIn } from "@/auth";
 import { getUserByEmail } from "../db/userService";
 
-
 export async function signinAction(formData: FormData) {
   try {
     const email = formData.get("email") as string;

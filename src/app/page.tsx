@@ -1,32 +1,72 @@
-// "use client";
+import { auth } from "../auth";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Separator } from "../components/ui/separator";
+import { signIn, signOut } from "../auth";
+import { redirect } from "next/navigation";
+import { signupAction } from "../action/signup";
+import { ThemeToggle } from "@/components/theme-toggle";
 
-// import { signOut } from "../auth";
-// import { Button } from "../components/ui/button";
-
-// export default function Home() {
-//   return (
-//     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-//       <form>
-//         <Button onClick={() => signOut()}>Sign out</Button>
-//       </form>
-//     </div>
-//   );
-// }
-
-import { auth, signIn } from "../auth";
-import SignoutBtn from "../components/auth/signout-btn";
-
-export default async function UserAvatar() {
+export default async function Home() {
   const session = await auth();
 
-  if (!session?.user) return null;
+  async function handleSignIn(formData: FormData) {
+    "use server";
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      redirect("/");
+    } catch (error) {
+      console.error("Sign in error:", error);
+    }
+  }
+
+  async function handleSignUp(formData: FormData) {
+    "use server";
+    const username = formData.get("username") as string;
+    const email = formData.get("signup-email") as string;
+    const password = formData.get("signup-password") as string;
+
+    const result = await signupAction({
+      username,
+      email,
+      password,
+    });
+
+    if (result.success) {
+      // Auto sign in after successful signup
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      redirect("/");
+    }
+  }
+
+  async function handleSignOut() {
+    "use server";
+    await signOut();
+    redirect("/");
+  }
 
   return (
-    <div>
-      {/* <img src={session.user.image} alt="User Avatar" /> */}
-      <p>{(session.user as any).name}</p>
-      {JSON.stringify(session)}
-      <SignoutBtn></SignoutBtn>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+      Home
     </div>
   );
 }

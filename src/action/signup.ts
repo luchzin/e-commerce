@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
 import bcrypt from "bcryptjs";
-import { createUser, getUserByEmail } from "@/db/userService"; 
-import { SignupType } from "@/app/auth/signup/page"; 
+import { createUser, getUserByEmail } from "@/db/userService";
+import { SignupType } from "@/app/auth/signup/page";
 
 export async function signupAction(data: SignupType) {
   try {

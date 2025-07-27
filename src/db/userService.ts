@@ -50,13 +50,13 @@ export async function getUserByEmail(email: string) {
 
 const resend = new Resend(process.env.AUTH_RESEND_KEY);
 
-export async function sendEmail(email: string,resetLink:string) {
+export async function sendEmail(email: string, resetLink: string) {
   try {
     const { data, error } = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
       to: email,
       subject: "Reset password Link",
-      react: EmailTemplate({ firstName: "John" ,resetLink}),
+      react: EmailTemplate({ firstName: "John", resetLink }),
     });
 
     if (error) {
@@ -66,7 +66,7 @@ export async function sendEmail(email: string,resetLink:string) {
 
     return data;
   } catch (err) {
-  // console.error(err);
+    // console.error(err);
     throw err;
   }
 }
