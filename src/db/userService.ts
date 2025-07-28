@@ -2,7 +2,7 @@
 import { db } from "./connection";
 import { users } from "./schema";
 import bcrypt from "bcryptjs";
-import { eq } from "drizzle-orm";
+import { eq, isNull, not } from "drizzle-orm";
 import { Resend } from "resend";
 import { EmailTemplate } from "../components/auth/email-template";
 
@@ -23,6 +23,13 @@ export async function createUser(arg: {
 }
 export async function getAllUsers() {
   const data = await db.select().from(users);
+  return data;
+}
+export async function getUserAvatar() {
+  const data = await db
+    .select()
+    .from(users)
+    .where(not(isNull(users.image)));
   return data;
 }
 

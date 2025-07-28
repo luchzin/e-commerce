@@ -704,7 +704,9 @@ export default function FlyingPosters({
         <div className="text-center max-w-md mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Welcome to
-            <span className="block text-red-400">Tshop</span>
+            <span className="block bg-gradient-to-r from-red-600 to-red-400 text-transparent bg-clip-text">
+              Tshop
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
             Discover our curated collection of premium products with

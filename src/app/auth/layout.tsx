@@ -13,7 +13,7 @@ const LayoutAuth: React.FC<{ children: any }> = ({ children }) => {
   return (
     <div className="flex flex-row h-screen w-screen">
       <div className="flex-1">{children}</div>
-      <div className="flex-1 hidden sm:block h-full bg-gradient-to-bl from-red-500 to-red-600">
+      <div className="flex-1 hidden sm:block h-full bg-gradient-to-bl from-red-900 via-black to-red-900">
         <FlyingPosters
           items={posterImages}
           planeWidth={400}
