@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import TrustedUsers from "./comp-412";
 
 const slideData = [
   {
@@ -60,79 +61,86 @@ export default function ImageSlider() {
   };
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden">
-      {/* Slides */}
-      <div className="relative w-full h-full">
-        {slideData.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            {/* Background Image */}
-            <div className="relative w-full h-full">
-              <Image
-                src={slide.image}
-                alt={slide.title}
-                fill
-                className="object-cover"
-                priority={index === 0}
-              />
+    <div className="relative w-full">
+      {/* Main Slider */}
+      <div className="relative w-full h-[500px] overflow-hidden">
+        {/* Slides */}
+        <div className="relative w-full h-full">
+          {slideData.map((slide, index) => (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {/* Background Image */}
+              <div className="relative w-full h-full">
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/30"></div>
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
 
-              {/* Content */}
-              <div className="absolute inset-0 flex items-center">
-                <div className="container mx-auto px-4">
-                  <div className="max-w-2xl">
-                    <div
-                      className={`inline-block text-black px-4 py-2 rounded-full text-sm font-medium mb-4 bg-gradient-to-r from-pink-100 to-purple-100 bg-opacity-80`}
-                    >
-                      {slide.subtitle}
+                {/* Content */}
+                <div className="absolute inset-0 flex items-center">
+                  <div className="container mx-auto px-4">
+                    <div className="max-w-2xl">
+                      <div
+                        className={`inline-block text-black px-4 py-2 rounded-full text-sm font-medium mb-4 bg-gradient-to-r from-pink-100 to-purple-100 bg-opacity-80`}
+                      >
+                        {slide.subtitle}
+                      </div>
+                      <h1 className="text-5xl font-bold text-white mb-4 leading-tight">
+                        {slide.title}
+                      </h1>
+                      <p className="text-xl text-white/90 mb-8 max-w-lg">
+                        {slide.description}
+                      </p>
+                      <Button className="bg-white text-black hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-full transition-all duration-300 mb-8">
+                        {slide.buttonText}
+                      </Button>
+                      {/* Trusted Users Section */}
+                      <div className="flex">
+                        <TrustedUsers />
+                      </div>
                     </div>
-                    <h1 className="text-5xl font-bold text-white mb-4 leading-tight">
-                      {slide.title}
-                    </h1>
-                    <p className="text-xl text-white/90 mb-8 max-w-lg">
-                      {slide.description}
-                    </p>
-                    <Button className="bg-white text-black hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-full transition-all duration-300">
-                      {slide.buttonText}
-                    </Button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
-        {slideData.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? "bg-white scale-125"
-                : "bg-white/50 hover:bg-white/75"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
+        {/* Dots Indicator */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+          {slideData.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-2 sm:w-3 h-2 sm:h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? "bg-white scale-125"
+                  : "bg-white/50 hover:bg-white/75"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Progress Bar */}
+        <div className="absolute bottom-0 left-0 w-full sm:h-1 h-[2px] bg-gray-200 dark:bg-gray-800">
+          <div
+            className="h-full bg-gradient-to-r from-pink-600 to-red-500 transition-all duration-500 ease-linear"
+            style={{
+              width: `${((currentSlide + 1) / slideData.length) * 100}%`,
+            }}
           />
-        ))}
-      </div>
-
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full sm:h-1 h-[2px] bg-gray-200 dark:bg-gray-800">
-        <div
-          className="h-full bg-gradient-to-r from-pink-600 to-red-500 transition-all duration-500 ease-linear"
-          style={{
-            width: `${((currentSlide + 1) / slideData.length) * 100}%`,
-          }}
-        />
+        </div>
       </div>
     </div>
   );

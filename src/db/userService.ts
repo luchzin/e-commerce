@@ -77,3 +77,16 @@ export async function sendEmail(email: string, resetLink: string) {
     throw err;
   }
 }
+
+export async function getTrustedUsers(limit: number = 4) {
+  const data = await db
+    .select({
+      id: users.id,
+      name: users.name,
+      image: users.image,
+    })
+    .from(users)
+    .where(not(isNull(users.image)))
+    .limit(limit);
+  return data;
+}
